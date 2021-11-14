@@ -9,12 +9,17 @@ def get_public_ip():
     data = json.loads(data)
     return data.get('origin')
 
+
 def get_socket_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("1.1.1.1", 80))
     ip = s.getsockname()[0]
     s.close()
     return ip
+
+
+def get_local_ip():
+    return ['127.0.0.1', '0.0.0.0']
 
 
 def get_host_ip():
