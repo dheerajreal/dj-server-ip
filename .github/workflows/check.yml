@@ -1,0 +1,30 @@
+name: tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: [3.6, 3.7, 3.8, 3.9]
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+          architecture: "x64"
+
+      - name: flake8 Linter
+        run: pip install flake8 && flake8 --statistics --count --ignore=E501
+
+      - name: Run tests
+        run: pip install pytest pytest-cov && pytest -vv --cov
