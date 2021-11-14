@@ -26,3 +26,13 @@ def get_host_ip():
     ip_list = subprocess.getoutput('hostname -I')
     ip_list = [ip for ip in ip_list.split(" ") if ip]
     return ip_list
+
+
+def server_ip():
+    public_ip = [get_public_ip()]
+    socket_ip = [get_socket_ip()]
+    local_ip = get_local_ip()
+    host_ip = get_host_ip()
+
+    ips = public_ip + socket_ip + local_ip + host_ip
+    return list(set(ips))
