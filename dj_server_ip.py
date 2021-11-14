@@ -1,5 +1,6 @@
-import socket
 import json
+import socket
+import subprocess
 from urllib.request import urlopen
 
 
@@ -15,3 +16,7 @@ def get_socket_ip():
     s.close()
     return ip
 
+
+def get_host_ip():
+    ip_list = subprocess.getoutput('hostname -i')
+    return ip_list.split(" ")
