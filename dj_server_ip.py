@@ -23,5 +23,6 @@ def get_local_ip():
 
 
 def get_host_ip():
-    ip_list = subprocess.getoutput('hostname -i')
-    return ip_list.split(" ")
+    ip_list = subprocess.getoutput('hostname -I')
+    ip_list = [ip for ip in ip_list.split(" ") if ip]
+    return ip_list
