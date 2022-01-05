@@ -5,17 +5,16 @@ from urllib.request import urlopen
 
 
 def get_public_ip():
-    data = urlopen('http://httpbin.org/ip').read()
-    data = json.loads(data)
-    return data.get('origin')
+    with urlopen('http://httpbin.org/ip') as response:
+        data = json.loads(response.read())
+        return data.get('origin')
 
 
 def get_socket_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("1.1.1.1", 80))
-    ip = s.getsockname()[0]
-    s.close()
-    return ip
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as connection:
+        connection.connect(("1.1.1.1", 80))
+        ip = connection.getsockname()[0]
+        return ip
 
 
 def get_local_ip():
